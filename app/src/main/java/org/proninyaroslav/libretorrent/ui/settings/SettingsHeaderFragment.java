@@ -82,6 +82,12 @@ public class SettingsHeaderFragment extends CustomPreferenceFragment {
         var binding = FragmentPreferenceBinding.bind(view);
         binding.appBar.setTitle(R.string.settings);
         binding.appBar.setNavigationIcon(null);
+        // The list is short, so disable scrolling and overscroll effects
+        var listContainer = view.findViewById(android.R.id.list_container);
+        if (listContainer != null) {
+            listContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            listContainer.setVerticalScrollBarEnabled(false);
+        }
 
         if (activity == null) {
             activity = (AppCompatActivity) requireActivity();
@@ -99,6 +105,7 @@ public class SettingsHeaderFragment extends CustomPreferenceFragment {
         }
 
         super.onViewCreated(view, savedInstanceState);
+        getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
 
     @NonNull
