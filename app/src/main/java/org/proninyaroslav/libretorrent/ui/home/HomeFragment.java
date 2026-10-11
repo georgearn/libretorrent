@@ -288,8 +288,24 @@ public class HomeFragment extends AbstractListDetailFragment {
         getAddTorrentFab().setOnClickListener(this::showFabMenu);
         binding.startDownloadButton.setOnClickListener((v) -> showFabMenu(v));
         initStatusTabs();
-        adapter.addOnCurrentListChangedListener((previous, current) ->
-                binding.torrentCount.setText(getString(R.string.torrents) + " (" + current.size() + ")"));
+        updateAddFabVisibility();
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                binding.torrentCount.setText(getString(R.string.torrents) + " (" + adapter.getItemCount() + ")");
+                updateAddFabVisibility();
+            }
+
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                onChanged();
+            }
+
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                onChanged();
+            }
+        });
 
         var i = activity.getIntent();
         if (i != null) {
@@ -460,8 +476,20 @@ public class HomeFragment extends AbstractListDetailFragment {
             } else {
                 activeSelectionTracker = null;
                 collapseContextualAppBar();
-                addTorrentFab.show();
+                updateAddFabVisibility();
             }
+        }
+    }
+
+    /*
+     * With an empty list the centered "start download" button is the add action,
+     * so the FAB is only shown once there are torrents.
+     */
+    private void updateAddFabVisibility() {
+        if (adapter.getItemCount() > 0 && activeSelectionTracker == null) {
+            getAddTorrentFab().show();
+        } else {
+            getAddTorrentFab().hide();
         }
     }
 

@@ -75,3 +75,7 @@ key.properties
 
 # Android NDK build stuff
 .externalNativeBuild
+
+# Local helper scripts
+build-and-run-release.ps1
+
