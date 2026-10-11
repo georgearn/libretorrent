@@ -20,15 +20,44 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_torrent_list" />
 
-    <org.proninyaroslav.libretorrent.ui.customviews.EmptyListPlaceholder
+    <LinearLayout
         android:id="@+id/empty_view_torrent_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
-        app:icon="@drawable/ic_lists_24px"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:text="@string/torrent_list_empty"
-        tools:visibility="gone" />
+        tools:visibility="gone">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/add_torrent_icon_background"
+            android:contentDescription="@null"
+            android:padding="24dp"
+            app:srcCompat="@drawable/ic_download_24px"
+            app:tint="?attr/colorOnPrimaryContainer" />
+
+        <TextView
+            style="?attr/textAppearanceBodyLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/torrent_list_empty_hint" />
+
+        <Button
+            android:id="@+id/start_download_button"
+            style="?attr/materialButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_marginTop="24dp"
+            android:paddingHorizontal="32dp"
+            android:text="@string/start_download"
+            app:cornerRadius="26dp" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/loading_view_torrent_list"
@@ -68,6 +97,39 @@
             android:minWidth="@dimen/search_bar_max_width"
             app:menu="@menu/home"
             app:navigationIcon="@drawable/ic_menu_24px" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/status_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:tabMode="auto">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/all" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_downloading" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_completed" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <TextView
+            android:id="@+id/torrent_count"
+            style="?attr/textAppearanceLabelLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp"
+            tools:text="Torrents (3)" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Elevation needs to be greater than AppBarLayout's elevation;

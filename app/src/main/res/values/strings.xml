@@ -636,4 +636,8 @@
         <item quantity="other">%1$s \u2022 %2$d files</item>
     </plurals>
     <string name="add_torrent_download">Download</string>
+    <string name="torrent_list_empty_hint">Hi, it looks like you want to download some content.</string>
+    <string name="start_download">Start download</string>
+    <string name="tab_downloading">Downloading</string>
+    <string name="tab_completed">Completed</string>
 </resources>

@@ -628,4 +628,8 @@
     <string name="pref_proxy_require_all_connections_title">Требовать прокси для всех подключений</string>
     <string name="pref_proxy_require_all_connections_summary">Отключает DHT, Local Service Discovery, UPnP и NAT-PMP во время работы прокси-сервера. Эти функции не могут быть перенаправлены через прокси-сервер и в противном случае раскрывали бы ваш реальный IP-адрес и DNS-запросы, даже при настроенном прокси-сервере.</string>
     <string name="add_torrent_download">Скачать</string>
+    <string name="torrent_list_empty_hint">Похоже, вы хотите скачать какой-то контент.</string>
+    <string name="start_download">Начать загрузку</string>
+    <string name="tab_downloading">Загрузка</string>
+    <string name="tab_completed">Завершённые</string>
 </resources>

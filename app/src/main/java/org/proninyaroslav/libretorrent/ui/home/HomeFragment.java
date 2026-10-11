@@ -63,6 +63,7 @@ import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.search.SearchView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
@@ -285,6 +286,10 @@ public class HomeFragment extends AbstractListDetailFragment {
         adapter.setSelectionTracker(selectionTracker);
 
         getAddTorrentFab().setOnClickListener(this::showFabMenu);
+        binding.startDownloadButton.setOnClickListener((v) -> showFabMenu(v));
+        initStatusTabs();
+        adapter.addOnCurrentListChangedListener((previous, current) ->
+                binding.torrentCount.setText(getString(R.string.torrents) + " (" + current.size() + ")"));
 
         var i = activity.getIntent();
         if (i != null) {
@@ -765,6 +770,31 @@ public class HomeFragment extends AbstractListDetailFragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::initTagChips)
         );
+    }
+
+    private void initStatusTabs() {
+        binding.statusTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (drawerBinding != null) {
+                    drawerBinding.drawerStatusChipGroup.clearCheck();
+                }
+                var filter = switch (tab.getPosition()) {
+                    case 1 -> TorrentFilterCollection.statusDownloading();
+                    case 2 -> TorrentFilterCollection.statusDownloaded();
+                    default -> TorrentFilterCollection.all();
+                };
+                viewModel.setStatusFilter(List.of(filter), true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
     }
 
     private void initDrawer() {
