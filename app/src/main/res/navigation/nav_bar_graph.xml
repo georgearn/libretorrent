@@ -112,6 +112,84 @@
             tools:layout="@layout/dialog_log_filter" />
     </navigation>
     <navigation
+        android:id="@+id/feed_nav"
+        app:startDestination="@id/feedFragment">
+        <fragment
+            android:id="@+id/feedFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.feeds.FeedFragment"
+            android:label="FeedFragment"
+            tools:layout="@layout/fragment_feed">
+            <argument
+                android:name="uri"
+                android:defaultValue="@null"
+                app:argType="android.net.Uri"
+                app:nullable="true" />
+            <action
+                android:id="@+id/action_add_feed_dialog"
+                app:destination="@id/addFeedDialog" />
+            <action
+                android:id="@+id/action_edit_feed_dialog"
+                app:destination="@id/addFeedDialog">
+                <argument
+                    android:name="feed_id"
+                    app:argType="long" />
+            </action>
+            <action
+                android:id="@+id/action_delete_feeds_dialog"
+                app:destination="@id/deleteFeedDialog" />
+            <action
+                android:id="@+id/action_error_report_dialog"
+                app:destination="@id/error_report_nav">
+                <argument
+                    android:name="message"
+                    app:argType="string" />
+                <argument
+                    android:name="exception"
+                    android:defaultValue="@null"
+                    app:argType="java.lang.Throwable"
+                    app:nullable="true" />
+            </action>
+        </fragment>
+        <dialog
+            android:id="@+id/addFeedDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.addfeed.AddFeedDialog"
+            android:label="AddFeedDialog"
+            tools:layout="@layout/dialog_add_feed_channel">
+            <argument
+                android:name="uri"
+                android:defaultValue="@null"
+                app:argType="android.net.Uri"
+                app:nullable="true" />
+            <argument
+                android:name="feed_id"
+                android:defaultValue="-1L"
+                app:argType="long" />
+            <action
+                android:id="@+id/action_clipboard_dialog"
+                app:destination="@id/clipboardDialog">
+                <argument
+                    android:name="fragment_request_key"
+                    app:argType="string" />
+            </action>
+            <action
+                android:id="@+id/action_delete_feed_dialog"
+                app:destination="@id/deleteFeedDialog" />
+        </dialog>
+        <dialog
+            android:id="@+id/deleteFeedDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.feeds.DeleteFeedDialog"
+            android:label="DeleteFeedDialog"
+            tools:layout="@layout/dialog_delete_torrent">
+            <argument
+                android:name="fragment_request_key"
+                app:argType="string" />
+            <argument
+                android:name="feed_count"
+                app:argType="integer" />
+        </dialog>
+        <include app:graph="@navigation/error_report_graph" />
+    </navigation>
+    <navigation
         android:id="@+id/settings_nav"
         app:startDestination="@id/settingsFragment">
         <fragment

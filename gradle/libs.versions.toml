@@ -1,7 +1,7 @@
 [versions]
 acra = "5.13.1"
 activity = "1.13.0"
-agp = "9.2.1"
+agp = "9.4.1"
 appcompat = "1.7.1"
 autoService = "1.1.1"
 colorpickerview = "2.4.0"
