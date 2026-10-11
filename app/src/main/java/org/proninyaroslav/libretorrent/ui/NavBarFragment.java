@@ -24,18 +24,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -48,14 +45,10 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigationrail.NavigationRailView;
 import com.google.android.material.transition.MaterialFade;
 
-import org.proninyaroslav.libretorrent.FeedNavDirections;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class NavBarFragment extends Fragment {
     private static final String TAG = NavBarFragment.class.getSimpleName();
@@ -66,7 +59,6 @@ public class NavBarFragment extends Fragment {
     private BottomNavigationView bottomNav = null;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private NavBarFragmentViewModel viewModel;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     public void setNavRailHeaderView(@NonNull View view) {
@@ -129,8 +121,6 @@ public class NavBarFragment extends Fragment {
             activity = (MainActivity) requireActivity();
         }
 
-        viewModel = new ViewModelProvider(this).get(NavBarFragmentViewModel.class);
-
         var navHostFragment = (NavHostFragment) getChildFragmentManager()
                 .findFragmentById(R.id.nav_bar_host_fragment);
         if (navHostFragment != null) {
@@ -184,14 +174,8 @@ public class NavBarFragment extends Fragment {
     }
 
     private void handleUri(Uri uri, @Nullable String mimeType) {
-        if (mimeType != null && Utils.matchFeedMimeType(mimeType)
-                || uri.getPath() != null && Utils.matchFeedFilePath(uri.getPath())) {
-            var action = FeedNavDirections.actionAddFeedDialog(uri);
-            navController.navigate(action);
-        } else {
-            var action = NavBarFragmentDirections.actionAddTorrent(uri);
-            activity.getRootNavController().navigate(action);
-        }
+        var action = NavBarFragmentDirections.actionAddTorrent(uri);
+        activity.getRootNavController().navigate(action);
     }
 
     private void animateHeaderTransition() {
@@ -203,38 +187,6 @@ public class NavBarFragment extends Fragment {
         var fade = new MaterialFade();
         fade.setDuration(duration);
         TransitionManager.beginDelayedTransition(navRail, fade);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        subscribeUnreadFeedsBadge();
-    }
-
-    private void subscribeUnreadFeedsBadge() {
-        disposables.add(viewModel.observeUnreadFeedsCount()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((count) -> setBadge(R.id.feed_nav, count),
-                        (Throwable t) -> Log.e(TAG, "Getting unread feed list error: " +
-                                Log.getStackTraceString(t)))
-        );
-    }
-
-    private void setBadge(@IdRes int menuId, int count) {
-        var navBar = getNavigationBarView();
-        if (navBar == null) {
-            return;
-        }
-        var badge = navBar.getOrCreateBadge(menuId);
-        if (count == 0) {
-            badge.setVisible(false);
-            badge.clearNumber();
-        } else {
-            badge.setVisible(true);
-            badge.setNumber(count);
-        }
     }
 
     @Override

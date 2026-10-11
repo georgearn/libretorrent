@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="12dp"
                     android:minWidth="@dimen/text_filed_max_width">
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -65,7 +65,53 @@
                     style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
+                    android:layout_marginBottom="12dp"
+                    android:visibility="@{viewModel.info.torrentSize == 0 || viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/torrent_size"
+                            app:drawableStartCompat="@drawable/ic_storage_24px" />
+
+                        <TextView
+                            android:id="@+id/size"
+                            style="?attr/textAppearanceHeadlineSmall"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="4dp"
+                            app:torrentFilesCount="@{viewModel.info.fileCount}"
+                            app:torrentFilesSize="@{viewModel.info.torrentSize}"
+                            tools:text="1 MB • 1 file" />
+
+                        <TextView
+                            android:id="@+id/free_space"
+                            style="?attr/textAppearanceBodySmall"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            app:fileSize="@{viewModel.mutableParams.storageFreeSpace}"
+                            app:formatFileSize="@{@string/free_space}"
+                            tools:text="100 GB free" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -116,7 +162,7 @@
                     style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
+                    android:layout_marginBottom="12dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -188,7 +234,7 @@
                     style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
+                    android:layout_marginBottom="12dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -247,54 +293,8 @@
                 <com.google.android.material.card.MaterialCardView
                     style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:visibility="@{viewModel.info.torrentSize == 0 || viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <TextView
-                            style="@style/TextAppearance.App.SectionTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:drawablePadding="8dp"
-                            android:gravity="center_vertical"
-                            android:text="@string/torrent_size"
-                            app:drawableStartCompat="@drawable/ic_storage_24px" />
-
-                        <TextView
-                            android:id="@+id/size"
-                            style="?attr/textAppearanceBodyLarge"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginBottom="8dp"
-                            app:torrentFilesCount="@{viewModel.info.fileCount}"
-                            app:torrentFilesSize="@{viewModel.info.torrentSize}"
-                            tools:text="1 MB • 1 file" />
-
-                        <TextView
-                            android:id="@+id/free_space"
-                            style="?attr/textAppearanceBodySmall"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            app:fileSize="@{viewModel.mutableParams.storageFreeSpace}"
-                            app:formatFileSize="@{@string/free_space}"
-                            tools:text="100 GB free" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
-                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="12dp"
                     android:visibility="@{TextUtils.isEmpty(viewModel.info.sha1Hash) ? View.GONE : View.VISIBLE}">
 
                     <LinearLayout
@@ -328,7 +328,7 @@
                     style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="12dp"
                     android:visibility="@{viewModel.info.creationDate == 0 ? View.GONE : View.VISIBLE}">
 
                     <LinearLayout
@@ -362,7 +362,7 @@
                     style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="12dp"
                     android:visibility="@{TextUtils.isEmpty(viewModel.info.comment) ? View.GONE : View.VISIBLE}">
 
                     <LinearLayout
@@ -398,7 +398,7 @@
                     style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="12dp"
                     android:visibility="@{TextUtils.isEmpty(viewModel.info.createdBy) ? View.GONE : View.VISIBLE}">
 
                     <LinearLayout

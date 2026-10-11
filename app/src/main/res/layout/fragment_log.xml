@@ -23,24 +23,14 @@
             android:fitsSystemWindows="true"
             app:liftOnScroll="false"
             app:statusBarForeground="?attr/colorSurface">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar_layout"
-                style="?attr/collapsingToolbarLayoutLargeStyle"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/app_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:elevation="0dp"
-                    app:layout_collapseMode="pin"
-                    app:menu="@menu/log"
-                    app:navigationIcon="@drawable/abc_ic_ab_back_material"
-                    app:title="@string/log_journal" />
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="0dp"
+            app:menu="@menu/log"
+            app:navigationIcon="@drawable/abc_ic_ab_back_material"
+            app:title="@string/log_journal" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <RelativeLayout

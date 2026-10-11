@@ -37,12 +37,6 @@
         android:title="@string/pref_header_scheduling" />
 
     <Preference
-        android:icon="@drawable/ic_rss_feed_24px"
-        android:key="@string/pref_key_feed_settings"
-        android:persistent="false"
-        android:title="@string/pref_header_feed" />
-
-    <Preference
         android:icon="@drawable/ic_play_arrow_24px"
         android:key="@string/pref_key_streaming_settings"
         android:persistent="false"
