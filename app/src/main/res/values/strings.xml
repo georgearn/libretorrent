@@ -635,4 +635,5 @@
         <item quantity="many">%1$s \u2022 %2$d files</item>
         <item quantity="other">%1$s \u2022 %2$d files</item>
     </plurals>
+    <string name="add_torrent_download">Download</string>
 </resources>
