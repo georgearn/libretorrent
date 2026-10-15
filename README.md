@@ -1,5 +1,3 @@
-<div align="center">
-
 <p><img src="fastlane/metadata/android/en-US/images/icon.png" width="150"></p>
 <h2><b>LibreTorrent</b></h2>
 
