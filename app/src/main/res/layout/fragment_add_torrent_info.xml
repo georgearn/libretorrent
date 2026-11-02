@@ -56,8 +56,8 @@
                             android:visibility="@{viewModel.info.torrentSize == 0 || viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}">
 
                             <ImageView
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
+                                android:layout_width="@dimen/hero_icon_size"
+                                android:layout_height="@dimen/hero_icon_size"
                                 android:background="@drawable/add_torrent_icon_background"
                                 android:contentDescription="@null"
                                 android:padding="14dp"

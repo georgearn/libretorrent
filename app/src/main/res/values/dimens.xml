@@ -20,4 +20,11 @@
     <dimen name="text_filed_max_width">488dp</dimen>
     <dimen name="bottom_bar_padding">80dp</dimen>
     <dimen name="list_fab_padding">72dp</dimen>
+
+    <!-- Floating pill navigation and inset containers -->
+    <dimen name="gutter">16dp</dimen>
+    <dimen name="nav_pill_margin_horizontal">32dp</dimen>
+    <dimen name="nav_pill_margin_vertical">12dp</dimen>
+    <dimen name="hero_icon_size">56dp</dimen>
+    <dimen name="empty_state_icon_size">96dp</dimen>
 </resources>

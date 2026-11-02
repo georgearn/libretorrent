@@ -21,15 +21,21 @@
             tools:title="@string/settings" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@android:id/list_container"
+    <com.google.android.material.card.MaterialCardView
+        style="?attr/materialCardViewFilledStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="@dimen/gutter"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/inset_container_background"
-        android:clipToOutline="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@android:id/list_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab"
