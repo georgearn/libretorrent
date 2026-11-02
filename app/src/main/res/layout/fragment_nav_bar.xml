@@ -21,11 +21,28 @@
             android:layout_weight="1"
             app:navGraph="@navigation/nav_bar_graph" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
+        <FrameLayout
+            android:id="@+id/nav_pill_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/nav" />
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:background="@drawable/nav_pill_background"
+                android:clipToOutline="true"
+                android:elevation="6dp"
+                app:itemPaddingBottom="12dp"
+                app:itemPaddingTop="12dp"
+                app:menu="@menu/nav"
+                app:paddingBottomSystemWindowInsets="false"
+                app:paddingLeftSystemWindowInsets="false"
+                app:paddingRightSystemWindowInsets="false" />
+        </FrameLayout>
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

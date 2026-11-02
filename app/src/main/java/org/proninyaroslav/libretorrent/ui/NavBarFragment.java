@@ -47,6 +47,8 @@ import com.google.android.material.transition.MaterialFade;
 
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
@@ -137,6 +139,11 @@ public class NavBarFragment extends Fragment {
         }
         if (bottomNav != null) {
             NavigationUI.setupWithNavController(bottomNav, navController);
+            var pillContainer = view.findViewById(R.id.nav_pill_container);
+            if (pillContainer != null) {
+                Utils.applyWindowInsets(pillContainer,
+                        WindowInsetsSide.BOTTOM | WindowInsetsSide.LEFT | WindowInsetsSide.RIGHT);
+            }
         }
 
         activity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
