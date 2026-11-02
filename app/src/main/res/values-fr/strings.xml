@@ -533,7 +533,7 @@
     <string name="pref_streaming_error">Choisissez un port ou un nom d\'hôte pour le streaming qui n\'est pas occupé ou incorrect.</string>
     <!-- About dialog -->
     <string name="about_title">À propos</string>
-    <string name="about_description">Plus d\'information et comment aider le projet : &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent est un client torrent Free as in Freedom pour Android 4+, basé sur libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent est un logiciel libre, publié sous les termes de la &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;Licence GNU General Public v3 (GPLv3)&lt;/a&gt;</string>
+    <string name="about_description">Plus d\'information et comment aider le projet : &lt;a href=https://github.com/georgearn/libretorrent&gt;https://github.com/georgearn/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent est un client torrent Free as in Freedom pour Android 4+, basé sur libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent est un logiciel libre, publié sous les termes de la &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;Licence GNU General Public v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Journal des modifications</string>
     <string name="pref_header_streaming">Streaming</string>
     <string name="pref_header_limitations">Limites</string>

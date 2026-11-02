@@ -533,7 +533,7 @@
     <string name="pref_streaming_error">스트리밍으로 지정된 포트나 호스트네임이 사용중이거나 올바르지 않습니다.</string>
     <!-- About dialog -->
     <string name="about_title">정보</string>
-    <string name="about_description">더 많은 정보와 프로젝트를 돕는 방법: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent는 Android 4 이상을 위한 카피레프트 리브레 (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) 토렌트 클라이언트이고, libtorrent 라이브러리 기반입니다. (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
+    <string name="about_description">더 많은 정보와 프로젝트를 돕는 방법: &lt;a href=https://github.com/georgearn/libretorrent&gt;https://github.com/georgearn/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent는 Android 4 이상을 위한 카피레프트 리브레 (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) 토렌트 클라이언트이고, libtorrent 라이브러리 기반입니다. (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">변경내역</string>
     <string name="edit_tag">태그 편집</string>
     <string name="internal_storage_name">내부 저장소</string>

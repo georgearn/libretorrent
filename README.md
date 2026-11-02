@@ -24,10 +24,6 @@
 * And more
 
 
-#### Developers
-
-* [Yaroslav Pronin](https://gitlab.com/proninyaroslav)
-
 ## 🔒 Privacy Policy
 
 Please see our [Privacy Policy](PRIVACY.md).

@@ -534,7 +534,7 @@
     <string name="pref_streaming_error">پورت یا نام میزبان انتخابی برای پخش آنلاین مشغول یا نادرست است. لطفا آن را درست کنید</string>
     <!-- About dialog -->
     <string name="about_title">درباره LibreTorrent</string>
-    <string name="about_description">اطلاعات بیشتر و همچنین برای کمک به پروژه: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent یک کارخواه آزاد بر اساس libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; برای اندروید بالای 4 است LibreTorrent یک نرم‌افزار آزاد،منتشر شده تحت شرایط &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;پروانه عمومی همگانی گنو نگارش 3 (GPLv3)&lt;/a&gt; است</string>
+    <string name="about_description">اطلاعات بیشتر و همچنین برای کمک به پروژه: &lt;a href=https://github.com/georgearn/libretorrent&gt;https://github.com/georgearn/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent یک کارخواه آزاد بر اساس libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; برای اندروید بالای 4 است LibreTorrent یک نرم‌افزار آزاد،منتشر شده تحت شرایط &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;پروانه عمومی همگانی گنو نگارش 3 (GPLv3)&lt;/a&gt; است</string>
     <string name="about_changelog">گزارش دگرگونی</string>
     <string name="error_open_torrent">ناتوان در بازکردن تورنت</string>
     <string name="manage_all_files_warning_dialog_title">هشدار</string>
