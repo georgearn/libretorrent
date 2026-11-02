@@ -16,9 +16,9 @@ android {
     namespace = 'org.proninyaroslav.libretorrent'
     defaultConfig {
         applicationId 'org.proninyaroslav.libretorrent'
-        minSdkVersion 31
-        targetSdkVersion 35
-        compileSdkVersion 36
+        minSdkVersion 33
+        targetSdkVersion 37
+        compileSdkVersion 37
         // Version code format: 0000xx0
         // xx - version code
         // trailing zero - auto increment for split ABI
