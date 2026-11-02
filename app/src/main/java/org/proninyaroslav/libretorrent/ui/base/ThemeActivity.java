@@ -59,20 +59,16 @@ public abstract class ThemeActivity extends AppCompatActivity implements SharedP
 
     private void setupTheme() {
         int themeResId = R.style.AppTheme;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (pref.dynamicColors()) {
-                if (pref.blackBackgrounds()) {
-                    themeResId = R.style.AppTheme_Black;
-                }
-            } else {
-                if (pref.blackBackgrounds()) {
-                    themeResId = R.style.AppTheme_NoDynamicColors_Black;
-                } else {
-                    themeResId = R.style.AppTheme_NoDynamicColors;
-                }
+        if (pref.dynamicColors()) {
+            if (pref.blackBackgrounds()) {
+                themeResId = R.style.AppTheme_Black;
             }
-        } else if (pref.blackBackgrounds()) {
-            themeResId = R.style.AppTheme_Black;
+        } else {
+            if (pref.blackBackgrounds()) {
+                themeResId = R.style.AppTheme_NoDynamicColors_Black;
+            } else {
+                themeResId = R.style.AppTheme_NoDynamicColors;
+            }
         }
         setTheme(themeResId);
     }
@@ -87,9 +83,7 @@ public abstract class ThemeActivity extends AppCompatActivity implements SharedP
         } else if (key.equals(getString(R.string.pref_key_locale))) {
             onLocaleChange();
         } else if (key.equals(getString(R.string.pref_key_theme_dynamic_colors))) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                recreate();
-            }
+            recreate();
         } else if (key.equals(getString(R.string.pref_key_theme_black_backgrounds))) {
             if (isNightModeActive()) {
                 recreate();

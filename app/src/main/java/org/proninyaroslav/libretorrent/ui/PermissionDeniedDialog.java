@@ -68,9 +68,7 @@ public class PermissionDeniedDialog extends DialogFragment {
         var args = PermissionDeniedDialogArgs.fromBundle(getArguments());
         requestKey = args.getFragmentRequestKey();
 
-        var message = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ?
-                R.string.perm_denied_warning_android_r :
-                R.string.perm_denied_warning;
+        var message = R.string.perm_denied_warning_android_r;
 
         var builder = new MaterialAlertDialogBuilder(activity)
                 .setIcon(R.drawable.ic_folder_24px)

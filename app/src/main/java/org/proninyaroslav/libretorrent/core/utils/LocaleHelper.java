@@ -51,26 +51,19 @@ public class LocaleHelper {
         Configuration config = new Configuration(context.getResources().getConfiguration());
         Locale locale = localeFromLanguageCode(languageCode);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            LocaleList localeList = new LocaleList(locale);
-            LocaleList.setDefault(localeList);
-            config.setLocales(localeList);
-        } else {
-            Locale.setDefault(locale);
-            config.setLocale(locale);
-        }
+        LocaleList localeList = new LocaleList(locale);
+        LocaleList.setDefault(localeList);
+        config.setLocales(localeList);
 
         return context.createConfigurationContext(config);
     }
 
     public static void setLocale(@NonNull String languageCode) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (SYSTEM_DEFAULT.equals(languageCode)) {
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList());
-            } else {
-                Locale locale = localeFromLanguageCode(languageCode);
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(locale));
-            }
+        if (SYSTEM_DEFAULT.equals(languageCode)) {
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList());
+        } else {
+            Locale locale = localeFromLanguageCode(languageCode);
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(locale));
         }
     }
 

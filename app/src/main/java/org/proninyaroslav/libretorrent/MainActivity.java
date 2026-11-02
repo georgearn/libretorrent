@@ -190,8 +190,7 @@ public class MainActivity extends ThemeActivity {
     }
 
     public void showManageAllFilesWarningDialog() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                || Utils.hasManageExternalStoragePermission(getApplicationContext())
+        if (Utils.hasManageExternalStoragePermission(getApplicationContext())
                 || !pref.showManageAllFilesWarningDialog()) {
             return;
         }

@@ -176,8 +176,7 @@ public class FileManagerViewModel extends AndroidViewModel {
     }
 
     List<File> filterDirectories(File[] files) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                || config.showMode == FileManagerConfig.Mode.FILE_CHOOSER) {
+        if (config.showMode == FileManagerConfig.Mode.FILE_CHOOSER) {
             return Arrays.asList(files);
         }
 

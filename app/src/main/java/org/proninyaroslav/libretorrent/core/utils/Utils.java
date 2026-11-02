@@ -184,12 +184,7 @@ public class Utils {
                 !systemFacade.isActiveNetworkMetered();
         noUnmeteredOnly = !unmeteredOnly || unmetered;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            noRoaming = !enableRoaming || caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
-        } else {
-            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
-            noRoaming = netInfo != null && !(enableRoaming && netInfo.isRoaming());
-        }
+        noRoaming = !enableRoaming || caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
 
         return noUnmeteredOnly && noRoaming;
     }
@@ -205,13 +200,8 @@ public class Utils {
     public static boolean isRoaming(@NonNull Context context) {
         SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
-            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
-        } else {
-            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
-            return netInfo != null && netInfo.isRoaming();
-        }
+        NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+        return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
     }
 
     /*
@@ -372,13 +362,9 @@ public class Utils {
      */
 
     public static void startServiceBackground(@NonNull Context context, @NonNull Intent i) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Postpone the service start until the main thread is free to avoid ANR
-            new Handler(Looper.getMainLooper())
-                    .post(() -> context.startForegroundService(i));
-        } else {
-            context.startService(i);
-        }
+        // Postpone the service start until the main thread is free to avoid ANR
+        new Handler(Looper.getMainLooper())
+                .post(() -> context.startForegroundService(i));
     }
 
     public static void enableBootReceiver(@NonNull Context context, boolean enable) {
@@ -710,16 +696,13 @@ public class Utils {
         return ((int) (Math.random() * 16777215)) | (0xFF << 24);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.S)
     public static Intent buildExactAlarmPermissionRequest(@NonNull Context context) {
         var uri = Uri.fromParts("package", context.getPackageName(), null);
         return new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).setData(uri);
     }
 
     public static void requestExactAlarmPermission(@NonNull Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            context.startActivity(buildExactAlarmPermissionRequest(context));
-        }
+        context.startActivity(buildExactAlarmPermissionRequest(context));
     }
 
     public static boolean hasManageExternalStoragePermission(@NonNull Context appContext) {
@@ -1004,11 +987,7 @@ public class Utils {
     }
 
     public static Typeface getBoldTypeface(Typeface typeface) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            return Typeface.create(typeface, 500, false);
-        } else {
-            return Typeface.create(typeface, Typeface.BOLD);
-        }
+        return Typeface.create(typeface, 500, false);
     }
 
     public static boolean matchFeedMimeType(@NonNull String mimeType) {

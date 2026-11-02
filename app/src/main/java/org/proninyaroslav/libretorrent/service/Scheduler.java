@@ -98,7 +98,7 @@ public class Scheduler {
         );
         AlarmManager am = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !am.canScheduleExactAlarms()) {
+        if (!am.canScheduleExactAlarms()) {
             return false;
         }
         am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);

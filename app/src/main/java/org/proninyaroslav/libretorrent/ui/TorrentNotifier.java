@@ -79,9 +79,6 @@ public class TorrentNotifier {
     }
 
     public void makeNotifyChans() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
-            return;
-
         NotificationChannel defaultChan = new NotificationChannel(
                 DEFAULT_NOTIFY_CHAN_ID,
                 appContext.getString(R.string.def),
@@ -225,8 +222,6 @@ public class TorrentNotifier {
 
         builder.setCategory(Notification.CATEGORY_STATUS);
 
-        applyLegacyNotifySettings(builder);
-
         Intent openIntent = new Intent(appContext, MainActivity.class);
         openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         openIntent.setAction(MainActivity.ACTION_OPEN_TORRENT_DETAILS);
@@ -242,9 +237,6 @@ public class TorrentNotifier {
     }
 
     public void makeExactAlarmPermissionNotify() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            return;
-        }
         var requestPendingIntent = PendingIntent.getActivity(
                 appContext,
                 EXACT_ALARM_PERMISSION_NOTIFICATION_ID,
@@ -264,31 +256,5 @@ public class TorrentNotifier {
                 .setContentIntent(requestPendingIntent);
 
         notifyManager.notify(EXACT_ALARM_PERMISSION_NOTIFICATION_ID, builder.build());
-    }
-
-    /*
-     * Starting with the version of Android 8.0,
-     * setting notifications from the app preferences isn't working,
-     * you can change them only in the settings of Android 8.0
-     */
-
-    private void applyLegacyNotifySettings(NotificationCompat.Builder builder) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            return;
-
-        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
-
-        if (pref.playSoundNotify()) {
-            Uri sound = Uri.parse(pref.notifySound());
-            builder.setSound(sound);
-        }
-
-        if (pref.vibrationNotify())
-            builder.setVibrate(new long[]{1000}); /* ms */
-
-        if (pref.ledIndicatorNotify()) {
-            int color = pref.ledIndicatorColorNotify();
-            builder.setLights(color, 1000, 1000); /* ms */
-        }
     }
 }

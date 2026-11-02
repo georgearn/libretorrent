@@ -417,7 +417,6 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
     private boolean shouldUseSystemFilePicker(FileManagerConfig config) {
         return config.showMode == FileManagerConfig.Mode.FILE_CHOOSER
                 && config.allowSaf
-                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
                 && !Utils.hasManageExternalStoragePermission(activity.getApplicationContext());
     }
 

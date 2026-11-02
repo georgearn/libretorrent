@@ -50,10 +50,6 @@ public class FixHintTextInputEditText extends TextInputEditText {
 
     @Override
     public int getAutofillType() {
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
-            return AUTOFILL_TYPE_NONE;
-        } else {
-            return super.getAutofillType();
-        }
+        return super.getAutofillType();
     }
 }
