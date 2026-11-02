@@ -63,10 +63,10 @@ import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.search.SearchView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
 
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
@@ -801,27 +801,23 @@ public class HomeFragment extends AbstractListDetailFragment {
     }
 
     private void initStatusTabs() {
-        binding.statusTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (drawerBinding != null) {
-                    drawerBinding.drawerStatusChipGroup.clearCheck();
-                }
-                var filter = switch (tab.getPosition()) {
-                    case 1 -> TorrentFilterCollection.statusDownloading();
-                    case 2 -> TorrentFilterCollection.statusDownloaded();
-                    default -> TorrentFilterCollection.all();
-                };
-                viewModel.setStatusFilter(List.of(filter), true);
+        binding.statusChips.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            if (checkedIds.isEmpty()) {
+                return;
             }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+            var id = checkedIds.get(0);
+            TorrentFilter filter;
+            if (id == R.id.status_chip_downloading) {
+                filter = TorrentFilterCollection.statusDownloading();
+            } else if (id == R.id.status_chip_completed) {
+                filter = TorrentFilterCollection.statusDownloaded();
+            } else {
+                filter = TorrentFilterCollection.all();
             }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+            if (drawerBinding != null) {
+                drawerBinding.drawerStatusChipGroup.clearCheck();
             }
+            viewModel.setStatusFilter(List.of(filter), true);
         });
     }
 
