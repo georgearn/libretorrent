@@ -78,13 +78,27 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
 
+        <TextView
+            android:id="@+id/bottom_summary"
+            style="?attr/textAppearanceTitleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/gutter"
+            android:layout_toStartOf="@id/add_button"
+            android:ellipsize="end"
+            android:maxLines="2"
+            tools:text="1.2 GB of 4.1 GB selected" />
+
         <Button
             android:id="@+id/add_button"
             style="?attr/materialButtonStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/gutter"
             android:enabled="false"
             android:text="@string/add_torrent_download"
             app:icon="@drawable/ic_download_24px"

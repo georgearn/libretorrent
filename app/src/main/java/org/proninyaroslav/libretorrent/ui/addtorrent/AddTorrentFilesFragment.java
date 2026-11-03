@@ -225,11 +225,13 @@ public class AddTorrentFilesFragment extends Fragment implements DownloadableFil
             return;
         }
 
-        binding.filesSize.setText(getString(R.string.files_size,
+        var summary = getString(R.string.files_size,
                 Formatter.formatFileSize(activity.getApplicationContext(),
                         viewModel.fileTree.selectedFileSize()),
                 Formatter.formatFileSize(activity.getApplicationContext(),
-                        viewModel.fileTree.size())));
+                        viewModel.fileTree.size()));
+        binding.filesSize.setText(summary);
+        viewModel.selectionSummary.setValue(summary);
     }
 
     @Override

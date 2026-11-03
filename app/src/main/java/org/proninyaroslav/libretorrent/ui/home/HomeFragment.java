@@ -23,6 +23,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.InsetDrawable;
+import android.graphics.Canvas;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -56,10 +58,12 @@ import androidx.recyclerview.selection.SelectionPredicates;
 import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.search.SearchView;
 import com.google.android.material.snackbar.Snackbar;
@@ -284,6 +288,7 @@ public class HomeFragment extends AbstractListDetailFragment {
             selectionTracker.onRestoreInstanceState(savedInstanceState);
         }
         adapter.setSelectionTracker(selectionTracker);
+        initSwipeActions();
 
         getAddTorrentFab().setOnClickListener(this::showFabMenu);
         binding.startDownloadButton.setOnClickListener((v) -> showFabMenu(v));
@@ -800,6 +805,68 @@ public class HomeFragment extends AbstractListDetailFragment {
         );
     }
 
+    /*
+     * Swipe right: pause/resume, swipe left: delete (asks for confirmation).
+     */
+    private void initSwipeActions() {
+        var resumeColor = MaterialColors.getColor(binding.torrentList,
+                com.google.android.material.R.attr.colorSecondaryContainer);
+        var deleteColor = MaterialColors.getColor(binding.torrentList,
+                com.google.android.material.R.attr.colorErrorContainer);
+        var background = new ColorDrawable();
+
+        var callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                return activeSelectionTracker != null ? 0 : super.getSwipeDirs(recyclerView, viewHolder);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                var position = viewHolder.getBindingAdapterPosition();
+                if (position == RecyclerView.NO_POSITION) {
+                    return;
+                }
+                var item = adapter.getItemKey(position);
+                adapter.notifyItemChanged(position);
+                if (direction == ItemTouchHelper.RIGHT) {
+                    viewModel.pauseResumeTorrent(item.torrentId);
+                } else {
+                    selectionTracker.select(item);
+                    deleteTorrentsDialog();
+                }
+            }
+
+            @Override
+            public void onChildDraw(@NonNull Canvas c,
+                                    @NonNull RecyclerView recyclerView,
+                                    @NonNull RecyclerView.ViewHolder viewHolder,
+                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                var itemView = viewHolder.itemView;
+                if (dX != 0) {
+                    background.setColor(dX > 0 ? resumeColor : deleteColor);
+                    if (dX > 0) {
+                        background.setBounds(itemView.getLeft(), itemView.getTop(),
+                                itemView.getLeft() + (int) dX, itemView.getBottom());
+                    } else {
+                        background.setBounds(itemView.getRight() + (int) dX, itemView.getTop(),
+                                itemView.getRight(), itemView.getBottom());
+                    }
+                    background.draw(c);
+                }
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+        new ItemTouchHelper(callback).attachToRecyclerView(binding.torrentList);
+    }
+
     private void initStatusTabs() {
         binding.statusChips.setOnCheckedStateChangeListener((group, checkedIds) -> {
             if (checkedIds.isEmpty()) {
@@ -1230,6 +1297,9 @@ public class HomeFragment extends AbstractListDetailFragment {
             listenPort = stats.listenPort;
         }
 
+        binding.speedSummary.setText(getString(R.string.speed_summary,
+                Formatter.formatFileSize(activity, downloadSpeed),
+                Formatter.formatFileSize(activity, uploadSpeed)));
         drawerBinding.sessionDhtNodesStat.setText(getString(R.string.session_stats_dht_nodes, dhtNodes));
         drawerBinding.sessionDownloadStat.setText(getString(R.string.session_stats_download_upload,
                 Formatter.formatFileSize(activity, totalDownload),

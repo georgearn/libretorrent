@@ -222,6 +222,8 @@ public class AddTorrentFragment extends Fragment {
         });
 
         binding.addButton.setOnClickListener((v) -> addTorrent());
+        viewModel.selectionSummary.observe(getViewLifecycleOwner(),
+                (summary) -> binding.bottomSummary.setText(summary));
     }
 
     private final ViewPager2.OnPageChangeCallback viewPagerCallback = new ViewPager2.OnPageChangeCallback() {

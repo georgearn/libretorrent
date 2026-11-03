@@ -640,4 +640,5 @@
     <string name="start_download">Start download</string>
     <string name="tab_downloading">Downloading</string>
     <string name="tab_completed">Completed</string>
+    <string name="speed_summary">\u2193 %1$s/s  \u2191 %2$s/s</string>
 </resources>

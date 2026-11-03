@@ -139,15 +139,31 @@
             </com.google.android.material.chip.ChipGroup>
 
 
-        <TextView
-            android:id="@+id/torrent_count"
-            style="?attr/textAppearanceLabelLarge"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/gutter"
             android:paddingTop="12dp"
-            android:paddingBottom="4dp"
-            tools:text="Torrents (3)" />
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:id="@+id/torrent_count"
+                style="?attr/textAppearanceTitleMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="Torrents (3)" />
+
+            <TextView
+                android:id="@+id/speed_summary"
+                style="?attr/textAppearanceTitleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorPrimary"
+                tools:text="↓ 1.2 MB/s  ↑ 0.3 MB/s" />
+        </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Elevation needs to be greater than AppBarLayout's elevation;

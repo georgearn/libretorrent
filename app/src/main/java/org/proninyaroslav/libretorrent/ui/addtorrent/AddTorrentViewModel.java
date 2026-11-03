@@ -84,6 +84,7 @@ public class AddTorrentViewModel extends AndroidViewModel {
 
     public AddTorrentMutableParams mutableParams = new AddTorrentMutableParams();
     public ObservableField<TorrentMetaInfo> info = new ObservableField<>();
+    public final MutableLiveData<String> selectionSummary = new MutableLiveData<>();
     private final MutableLiveData<DecodeState> decodeState = new MutableLiveData<>();
     private final FileSystemFacade fs;
     private final TorrentEngine engine;
