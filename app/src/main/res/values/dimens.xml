@@ -23,7 +23,6 @@
 
     <!-- Floating pill navigation and inset containers -->
     <dimen name="gutter">16dp</dimen>
-    <dimen name="nav_pill_margin_horizontal">32dp</dimen>
     <dimen name="nav_pill_margin_vertical">12dp</dimen>
     <dimen name="hero_icon_size">56dp</dimen>
     <dimen name="empty_state_icon_size">96dp</dimen>

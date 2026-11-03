@@ -20,6 +20,8 @@
 package org.proninyaroslav.libretorrent.ui;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,16 +31,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.transition.TransitionManager;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.motion.MotionUtils;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -58,7 +64,8 @@ public class NavBarFragment extends Fragment {
     private MainActivity activity;
     private NavController navController;
     private NavigationRailView navRail = null;
-    private BottomNavigationView bottomNav = null;
+    private MaterialButton navItemHome;
+    private MaterialButton navItemSettings;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private final CompositeDisposable disposables = new CompositeDisposable();
@@ -97,8 +104,54 @@ public class NavBarFragment extends Fragment {
         return navigationView;
     }
 
-    private NavigationBarView getNavigationBarView() {
-        return navRail == null ? bottomNav : navRail;
+    private void setupNavPill(@NonNull View view) {
+        navItemHome = view.findViewById(R.id.nav_item_home);
+        navItemSettings = view.findViewById(R.id.nav_item_settings);
+        navItemHome.setOnClickListener((v) -> navigateTopLevel(R.id.home_nav));
+        navItemSettings.setOnClickListener((v) -> navigateTopLevel(R.id.settings_nav));
+
+        navController.addOnDestinationChangedListener((controller, destination, args) -> {
+            var settingsSelected = false;
+            for (var d = destination; d != null; d = d.getParent()) {
+                if (d.getId() == R.id.settings_nav) {
+                    settingsSelected = true;
+                    break;
+                }
+            }
+            updateNavItem(navItemHome, !settingsSelected, R.drawable.ic_lists_24px);
+            updateNavItem(navItemSettings, settingsSelected, R.drawable.ic_settings_24px);
+        });
+    }
+
+    private void navigateTopLevel(@IdRes int graphId) {
+        var current = navController.getCurrentDestination();
+        for (var d = current; d != null; d = d.getParent()) {
+            if (d.getId() == graphId) {
+                return;
+            }
+        }
+        navController.navigate(graphId, null, new NavOptions.Builder()
+                .setLaunchSingleTop(true)
+                .setRestoreState(true)
+                .setPopUpTo(navController.getGraph().getStartDestinationId(), false, true)
+                .build());
+    }
+
+    /* Selected item shows icon and label on a tonal pill; others show only the label */
+    private void updateNavItem(@NonNull MaterialButton item, boolean selected, @DrawableRes int icon) {
+        item.setSelected(selected);
+        if (selected) {
+            item.setIconResource(icon);
+            item.setBackgroundTintList(ColorStateList.valueOf(
+                    MaterialColors.getColor(item, com.google.android.material.R.attr.colorSecondaryContainer)));
+            item.setTextColor(MaterialColors.getColor(item, com.google.android.material.R.attr.colorOnSecondaryContainer));
+            item.setIconTint(ColorStateList.valueOf(
+                    MaterialColors.getColor(item, com.google.android.material.R.attr.colorOnSecondaryContainer)));
+        } else {
+            item.setIcon(null);
+            item.setBackgroundTintList(ColorStateList.valueOf(Color.TRANSPARENT));
+            item.setTextColor(MaterialColors.getColor(item, com.google.android.material.R.attr.colorOnSurfaceVariant));
+        }
     }
 
     @Override
@@ -133,17 +186,14 @@ public class NavBarFragment extends Fragment {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         navigationView = view.findViewById(R.id.navigation_view);
         navRail = view.findViewById(R.id.navigation_rail);
-        bottomNav = view.findViewById(R.id.bottom_navigation);
         if (navRail != null) {
             NavigationUI.setupWithNavController(navRail, navController);
         }
-        if (bottomNav != null) {
-            NavigationUI.setupWithNavController(bottomNav, navController);
-            var pillContainer = view.findViewById(R.id.nav_pill_container);
-            if (pillContainer != null) {
-                Utils.applyWindowInsets(pillContainer,
-                        WindowInsetsSide.BOTTOM | WindowInsetsSide.LEFT | WindowInsetsSide.RIGHT);
-            }
+        var pillContainer = view.findViewById(R.id.nav_pill_container);
+        if (pillContainer != null) {
+            Utils.applyWindowInsets(pillContainer,
+                    WindowInsetsSide.BOTTOM | WindowInsetsSide.LEFT | WindowInsetsSide.RIGHT);
+            setupNavPill(view);
         }
 
         activity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {

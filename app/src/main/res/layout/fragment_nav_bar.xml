@@ -25,25 +25,39 @@
             android:id="@+id/nav_pill_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/nav_pill_margin_horizontal"
             android:layout_marginVertical="@dimen/nav_pill_margin_vertical">
 
             <com.google.android.material.card.MaterialCardView
-                style="?attr/materialCardViewElevatedStyle"
-                android:layout_width="match_parent"
+                style="?attr/materialCardViewFilledStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                 app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
 
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottom_navigation"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/nav_pill"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    app:elevation="0dp"
-                    app:menu="@menu/nav"
-                    app:paddingBottomSystemWindowInsets="false"
-                    app:paddingLeftSystemWindowInsets="false"
-                    app:paddingRightSystemWindowInsets="false" />
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/nav_item_home"
+                        style="?attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/torrents"
+                        app:icon="@drawable/ic_lists_24px" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/nav_item_settings"
+                        style="?attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings"
+                        app:icon="@drawable/ic_settings_24px" />
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </FrameLayout>
     </LinearLayout>
