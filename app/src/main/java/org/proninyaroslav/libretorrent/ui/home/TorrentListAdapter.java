@@ -220,6 +220,9 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             } else {
                 binding.progress.setIndeterminate(false);
                 binding.progress.setProgress(item.progress);
+                /* Active downloads get a wavy indicator, everything else stays flat */
+                binding.progress.setWaveAmplitude(item.stateCode == TorrentStateCode.DOWNLOADING
+                        ? Utils.dpToPx(context, 3) : 0);
             }
 
             String statusString = switch (item.stateCode) {

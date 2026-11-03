@@ -52,6 +52,9 @@
                 android:max="100"
                 app:trackCornerRadius="4dp"
                 app:trackThickness="8dp"
+                app:waveAmplitude="0dp"
+                app:waveSpeed="24dp"
+                app:wavelength="40dp"
                 tools:progress="50" />
 
             <LinearLayout
