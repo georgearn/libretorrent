@@ -27,7 +27,9 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/gutter"
         android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
 

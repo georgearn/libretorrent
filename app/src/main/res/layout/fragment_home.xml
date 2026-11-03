@@ -166,25 +166,31 @@
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Elevation needs to be greater than AppBarLayout's elevation;
-    otherwise for some reason when the AppBarLayout's background
-    is not transparent, the elevation on this Toolbar doesn't show. -->
     <FrameLayout
         android:id="@+id/contextual_app_bar_container"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginHorizontal="@dimen/gutter"
+        android:layout_marginBottom="@dimen/gutter"
         android:elevation="5dp"
-        android:fitsSystemWindows="true"
         android:visibility="gone">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/contextual_app_bar"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            style="?attr/materialCardViewElevatedStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/search_bar_top_margin"
-            android:minHeight="?attr/actionBarSize"
-            app:menu="@menu/home_contextual_mode"
-            app:navigationIcon="@drawable/ic_close_24px" />
+            app:cardBackgroundColor="?attr/colorSurfaceContainerHighest"
+            app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/contextual_app_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                app:menu="@menu/home_contextual_mode"
+                app:navigationIcon="@drawable/ic_close_24px" />
+        </com.google.android.material.card.MaterialCardView>
     </FrameLayout>
 
     <com.google.android.material.search.SearchView

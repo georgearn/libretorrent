@@ -26,4 +26,6 @@
     <dimen name="nav_pill_margin_vertical">12dp</dimen>
     <dimen name="hero_icon_size">56dp</dimen>
     <dimen name="empty_state_icon_size">96dp</dimen>
+    <dimen name="segment_corner_large">20dp</dimen>
+    <dimen name="segment_corner_small">4dp</dimen>
 </resources>

@@ -56,6 +56,7 @@ public class CustomPreferenceGroupAdapter extends PreferenceGroupAdapter {
             stylizePreferenceCategory(holder);
         } else {
             stylizePreference(holder);
+            setSegmentBackground(holder, position);
         }
     }
 
@@ -74,8 +75,10 @@ public class CustomPreferenceGroupAdapter extends PreferenceGroupAdapter {
         TextView summary = holder.itemView.findViewById(android.R.id.summary);
 
         var params = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-        params.rightMargin = Utils.dpToPx(context, 4);
-        params.leftMargin = params.rightMargin;
+        params.leftMargin = 0;
+        params.rightMargin = 0;
+        params.topMargin = Utils.dpToPx(context, 1);
+        params.bottomMargin = params.topMargin;
 
         setPreferenceDrawable(context, holder);
 
@@ -90,6 +93,30 @@ public class CustomPreferenceGroupAdapter extends PreferenceGroupAdapter {
             summary.setPadding(0, Utils.dpToPx(context, 8), 0, 0);
             summary.setTextAppearance(R.style.App_Components_ListItem_SupportingText);
         }
+    }
+
+    /*
+     * Groups consecutive preferences into one tonal container: the first and the last
+     * items get large outer corners, items in between are separated by a thin gap.
+     */
+    private void setSegmentBackground(@NonNull PreferenceViewHolder holder, int position) {
+        var context = holder.itemView.getContext();
+        var res = context.getResources();
+        var large = res.getDimension(R.dimen.segment_corner_large);
+        var small = res.getDimension(R.dimen.segment_corner_small);
+
+        var first = position == 0 || getItem(position - 1) instanceof PreferenceCategory;
+        var last = position == getItemCount() - 1 || getItem(position + 1) instanceof PreferenceCategory;
+
+        var shape = ShapeAppearanceModel.builder()
+                .setTopLeftCornerSize(first ? large : small)
+                .setTopRightCornerSize(first ? large : small)
+                .setBottomLeftCornerSize(last ? large : small)
+                .setBottomRightCornerSize(last ? large : small)
+                .build();
+        var background = new MaterialShapeDrawable(shape);
+        background.setTint(MaterialColors.getColor(holder.itemView, R.attr.colorSurfaceContainer));
+        holder.itemView.setBackground(background);
     }
 
     private void setPreferenceDrawable(@NonNull Context context, @NonNull PreferenceViewHolder holder) {

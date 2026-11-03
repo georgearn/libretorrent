@@ -1403,11 +1403,26 @@ public class HomeFragment extends AbstractListDetailFragment {
     }
 
     private void startContextualMode() {
-        binding.searchBar.expand(binding.contextualAppBarContainer, binding.appBarLayout);
+        var container = binding.contextualAppBarContainer;
+        if (container.getVisibility() == View.VISIBLE && container.getAlpha() == 1f) {
+            return;
+        }
+        container.animate().cancel();
+        container.setAlpha(0f);
+        container.setTranslationY(Utils.dpToPx(activity, 48));
+        container.setVisibility(View.VISIBLE);
+        container.animate().alpha(1f).translationY(0f).setDuration(200).start();
     }
 
     private void collapseContextualAppBar() {
-        binding.searchBar.collapse(binding.contextualAppBarContainer, binding.appBarLayout);
+        var container = binding.contextualAppBarContainer;
+        container.animate().cancel();
+        container.animate()
+                .alpha(0f)
+                .translationY(Utils.dpToPx(activity, 48))
+                .setDuration(150)
+                .withEndAction(() -> container.setVisibility(View.GONE))
+                .start();
     }
 
     private void finishContextualMode() {
